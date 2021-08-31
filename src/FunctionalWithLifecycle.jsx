@@ -40,7 +40,7 @@ const FunctionalWithLifecycle = () => {
         <div>
             <h1>LIFECYCLE IN A FUNCTIONAL COMPONENT</h1>
             <p style={{ textAlign: 'center' }}>{city}</p>
-            <div style={{ marginLeft: 'auto', marginRight: 'auto' }}>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <button onClick={changeCity}>CHANGE CITY</button>
             </div>
         </div>
