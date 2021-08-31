@@ -10,7 +10,9 @@ import { useEffect, useState } from 'react'
 const FunctionalWithLifecycle = () => {
 
     const [city, setCity] = useState('Venice')
+    const [counter, setCounter] = useState(0)
 
+    // COMPONENTDIDMOUNT
     useEffect(() => {
         // this callback if for putting your logic in
         setCity('Milan')
@@ -19,6 +21,7 @@ const FunctionalWithLifecycle = () => {
         // I'm not listening to ANYTHING for re-launching this function
     ])
 
+    // COMPONENTDIDUPDATE (GENERIC, this captures every change in state and props)
     useEffect(() => {
         // now let's try to create a componentDidUpdate
         console.log('this is like componentDidUpdate', city)
@@ -29,6 +32,25 @@ const FunctionalWithLifecycle = () => {
         // it's going to crash/provide unwanted behavior
     })
     // we're not putting ANYTHING as the second argument
+
+    // COMPONENTDIDUPDATE (triggered just then counter changes)
+    useEffect(() => {
+        console.log('The counter just increased!')
+    }, [counter])
+
+    // COMPONENTDIDUPDATE (triggered just when city changes)
+    useEffect(() => {
+        console.log('The city just changed!')
+    }, [city])
+
+    // COMPONENTWILLUNMOUNT
+    // you can use useEffect also for replacing componentWillUnmount
+    useEffect(() => {
+        return () => {
+            // now you can write here your componentWillUnmount logic!
+            console.log('bye bye!')
+        }
+    }, [])
 
     const changeCity = () => {
         let arrayOfCities = ['NY', 'Berlin', 'Naples', 'Barcelona', 'Tirana']
@@ -42,6 +64,10 @@ const FunctionalWithLifecycle = () => {
             <p style={{ textAlign: 'center' }}>{city}</p>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <button onClick={changeCity}>CHANGE CITY</button>
+            </div>
+            <p style={{ textAlign: 'center' }}>{counter}</p>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <button onClick={() => setCounter(counter + 1)}>INCREASE COUNTER</button>
             </div>
         </div>
     )
